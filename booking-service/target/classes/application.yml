@@ -1,0 +1,58 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: booking-service
+
+  datasource:
+    url: jdbc:h2:mem:booking-db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+# JWT конфигурация
+jwt:
+  secret: ${JWT_SECRET:MySecretKeyForJWT12345678901234567890}
+  issuer: booking-service
+  expiration: 3600
+
+# Feign конфигурация для Hotel Service
+feign:
+  client:
+    config:
+      hotel-management-service:
+        connectTimeout: 5000
+        readTimeout: 10000
+        retryer:
+          enabled: true
+          maxAttempts: 3
+          initialInterval: 1000
+          maxInterval: 2000
+          multiplier: 2
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - health
+          - info
+
+logging:
+  level:
+    org.springframework.cloud.openfeign: DEBUG
+    com.hotel.booking.service: INFO

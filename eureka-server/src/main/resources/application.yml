@@ -1,0 +1,31 @@
+server:
+  port: 8761
+
+eureka:
+  client:
+    # Сервис не регистрируется сам, только другие сервисы регистрируются у него
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+  # Настройки Eureka Server
+  instance:
+    hostname: localhost
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+          - eureka
+          - health
+          - info
+  endpoint:
+    eureka:
+      path: /actuator/eureka
+
+logging:
+  level:
+    org.springframework.cloud.netflix.eureka: INFO
+    com.hotel.eureka.server: DEBUG
