@@ -10,6 +10,7 @@ import com.hotel.management.service.dto.RoomAvailabilityRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.retry.annotation.Backoff;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Service;
@@ -35,14 +36,15 @@ public class BookingService {
 
     private final BookingRepository bookingRepository;
     private final HotelManagementServiceClient hotelClient;
-    private final UserService userService;
+
+//    @Lazy
+//    private final UserService userService;     // ← Требует UserService
 
     private static final DateTimeFormatter DATE_TIME_FORMATTER = 
             DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
 
     /**
      * Создает новое бронирование с двухшаговой согласованностью.
-     * 
      * Шаги:
      * 1. Локальная транзакция в Booking Service - создаёт бронирование в статусе PENDING
      * 2. Вызов Hotel Management Service для подтверждения доступности номера

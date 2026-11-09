@@ -22,13 +22,14 @@
         <module name="booking-service" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel target="21" />
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="api-gateway" options="" />
-      <module name="booking-service" options="" />
+      <module name="api-gateway" options="-parameters" />
+      <module name="booking-service" options="-parameters" />
       <module name="eureka-server" options="-parameters" />
-      <module name="hotel-management-service" options="" />
+      <module name="hotel-management-service" options="-parameters" />
     </option>
   </component>
 </project>

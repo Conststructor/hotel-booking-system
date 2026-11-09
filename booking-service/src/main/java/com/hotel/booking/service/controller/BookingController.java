@@ -28,8 +28,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookingController {
 
-    private final BookingService bookingService;
-    private final UserService userService;
+    private final BookingService bookingService;    // ← Требует BookingService
+    private final UserService userService;          // ← Требует UserService
     private final JwtTokenProvider jwtTokenProvider;
 //    private final BookingDetailService bookingDetailService;
 
